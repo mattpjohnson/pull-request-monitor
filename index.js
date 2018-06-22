@@ -75,6 +75,7 @@ module.exports = robot => {
     const failedPullRequests = await getFailedPullRequests({ context })
     const comment = await createPullRequestComment({ context })
     const issue = context.issue({ logger: robot.log })
+
     failedPullRequests.forEach(pullRequest => {
       context.github.issues.createComment({ ...issue, body: comment, number: pullRequest.number })
       context.github.issues.addLabels({ ...issue, number: pullRequest.number, labels: ['Failing CI'] })
