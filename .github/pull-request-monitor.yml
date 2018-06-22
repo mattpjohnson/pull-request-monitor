@@ -1,0 +1,2 @@
+# Label to add when pull request fails. Set to `false` to disable
+failedCiLabel: "Testing testing 123"
