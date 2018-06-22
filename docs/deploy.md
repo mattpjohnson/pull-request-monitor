@@ -5,11 +5,8 @@ If you would like to run your own instance of this plugin, see the [docs for dep
 This plugin requires these **Permissions & events** for the GitHub App:
 
 - Issues - **Read & Write**
-  - [x] Check the box for **Issue comment** events
-  - [x] Check the box for **Issues** events
-- Pull requests - **Read & Write**
-  - [x] Check the box for **Pull request** events
-  - [x] Check the box for **Pull request review** events
-  - [x] Check the box for **Pull request review comment** events
+- Pull requests - **Read-only**
+- Commit Statuses - **Read-only**
+  - [x] Check the box for **Status** events
 - Single File - **Read-only**
   - Path: `.github/pull-request-monitor.yml`
