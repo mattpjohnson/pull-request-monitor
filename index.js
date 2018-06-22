@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const getConfig = require('probot-config')
 
 const CircleCI = require('circleci')
 const ci = new CircleCI({
@@ -66,19 +67,28 @@ async function getBuild({ context }) {
   })
 }
 
+function getValueFromConfig(config, key, defaultValue) {
+  if (config && config[key] != undefined) {
+    return config[key]
+  }
+
+  return defaultValue
+}
+
 module.exports = robot => {
   robot.on('status', async context => {
     if (!context.payload.state === 'failure') {
       return
     }
 
+    const config = await getConfig(context, 'pull-request-monitor.yml')
     const failedPullRequests = await getFailedPullRequests({ context })
     const comment = await createPullRequestComment({ context })
     const issue = context.issue({ logger: robot.log })
 
     failedPullRequests.forEach(pullRequest => {
       context.github.issues.createComment({ ...issue, body: comment, number: pullRequest.number })
-      context.github.issues.addLabels({ ...issue, number: pullRequest.number, labels: ['Failing CI'] })
+      context.github.issues.addLabels({ ...issue, number: pullRequest.number, labels: [getValueFromConfig(config, 'failedCiLabel', 'Failing CI')] })
     })
   })
 }
