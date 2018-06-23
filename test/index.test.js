@@ -22,18 +22,18 @@ describe('pull-request-monitor', () => {
     payload
   }
 
-  const monitor = new Monitor(context)
-
   test('getValueFromConfig should return default value', async () => {
     getConfig.mockResolvedValue({})
 
     const defaultValue = 'Hello, World!'
+    const monitor = new Monitor(context)
     const val = await monitor.getValueFromConfig({ key: '', defaultValue })
 
     expect(val).toEqual(defaultValue)
   })
 
   test('getBuild should load build from the Circle CI API', async () => {
+    const monitor = new Monitor(context)
     const build = await monitor.getBuild()
 
     expect(build.build_num).toBe(1)
@@ -44,8 +44,8 @@ describe('pull-request-monitor', () => {
 
     it('should not call createComment or addLabels if there are no pull requests', () => {
       const pullRequests = createResolverForPullRequests([])
-      const monitor2 = new Monitor({ ...context, github: { ...context.github, pullRequests } })
-      monitor2.markAllFailedPullRequests()
+      const monitor = new Monitor({ ...context, github: { ...context.github, pullRequests } })
+      monitor.markAllFailedPullRequests()
 
       expect(github.issues.createComment).not.toHaveBeenCalled()
       expect(github.issues.addLabels).not.toHaveBeenCalled()
@@ -62,8 +62,8 @@ describe('pull-request-monitor', () => {
         github.issues.createComment.mockClear()
         github.issues.addLabels.mockClear()
 
-        const monitor3 = new Monitor({ ...context, github: { ...context.github, pullRequests } })
-        await monitor3.markAllFailedPullRequests()
+        const monitor = new Monitor({ ...context, github: { ...context.github, pullRequests } })
+        await monitor.markAllFailedPullRequests()
 
         expect(github.issues.createComment).toHaveBeenCalledTimes(i)
         expect(github.issues.addLabels).toHaveBeenCalledTimes(i)
