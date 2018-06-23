@@ -6,10 +6,10 @@
 ![Coveralls github](https://img.shields.io/coveralls/github/mattpjohnson/pull-request-monitor.svg)
 ![license](https://img.shields.io/github/license/mattpjohnson/pull-request-monitor.svg)
 
-[![](docs/pull-request-monitor-example.png)](https://github.com/mattpjohnson/failing-repo/pull/1)
+[![](docs/pull-request-monitor-example.png)](https://github.com/mattpjohnson/failing-repo/pull/2)
 
 ## Solution
-See a [demo](https://github.com/mattpjohnson/failing-repo/pull/1) of the solution.
+See a [demo](https://github.com/mattpjohnson/failing-repo/pull/2) of the solution.
 
 1. Capture failing events
 2. Get the commit from the failed event
