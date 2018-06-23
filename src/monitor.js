@@ -18,7 +18,7 @@ class Monitor {
         const comment = await this.createPullRequestComment()
         const issue = this.context.issue()
         const label = await this.getValueFromConfig({ key: 'failedCiLabel', defaultValue: 'Failing CI' })
-    
+
         failedPullRequests.forEach(pullRequest => {
             this.context.github.issues.createComment({ ...issue, body: comment, number: pullRequest.number })
             this.context.github.issues.addLabels({ ...issue, number: pullRequest.number, labels: [label] })
@@ -69,7 +69,7 @@ class Monitor {
     async getBuild() {
         const buildNumRegex = new RegExp(`${this.context.payload.name}/(\\d+)`)
         const matches = buildNumRegex.exec(this.context.payload.target_url)
-        
+
         if (!matches) {
             return
         }
