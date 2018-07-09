@@ -8,8 +8,8 @@ const ci = new CircleCI({
 
 class Monitor {
     constructor(context) {
-        this.context = context;
-        this.failedCommit = context.payload.commit;
+        this.context = context
+        this.failedCommit = context.payload.commit
         this.configPromise = getConfig(context, 'pull-request-monitor.yml')
     }
 
